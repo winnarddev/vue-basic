@@ -1,17 +1,50 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <img alt="Vue logo" src="./assets/logo.png" />
+  <Form msg="Winnard" v-on:add="addValue" />
+  <Todos v-bind:todos="todos" />
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+//import HelloWorld from "./components/HelloWorld.vue";
+import Form from "./components/Form.vue";
+import Todos from "./components/Todos.vue";
 
 export default {
-  name: 'App',
+  name: "App",
   components: {
-    HelloWorld
-  }
-}
+    Form,
+    Todos,
+  },
+  methods: {
+    addValue(newValue) {
+      // const {desc,completed} = newValue
+      this.todos = [...this.todos, newValue];
+      console.log(this.todos);
+    },
+  },
+
+  data() {
+    return {
+      todos: [
+        {
+          id: 1,
+          desc: "hello1",
+          completed: true,
+        },
+        {
+          id: 2,
+          desc: "hello2",
+          completed: false,
+        },
+        {
+          id: 3,
+          desc: "hello3",
+          completed: false,
+        },
+      ],
+    };
+  },
+};
 </script>
 
 <style>
