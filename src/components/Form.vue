@@ -3,9 +3,10 @@
   <div>
     <h3>Hello {{ msg }}</h3>
 
-    <form @submit="add">
-      <input type="text" v-model="desc" name="desc" />
-      <input type="submit" />
+    <form @submit.prevent="add">
+      <input type="text" v-model="desc" name="desc" placeholder="Add Todo..." />
+      <input type="submit" /><br />
+      <span class="errorMsg">{{ errorMsg }}</span>
     </form>
   </div>
 </template>
@@ -16,16 +17,24 @@ export default {
   props: {
     msg: String,
   },
-  data() {},
+  data() {
+    return { errorMsg: "", desc: "" };
+  },
   methods: {
     add(e) {
       e.preventDefault();
-      const newValue = {
-        id: 4,
-        desc: this.desc,
-        completed: false,
-      };
-      this.$emit("add", newValue);
+      if (!this.desc) {
+        this.errorMsg = "Please enter";
+      } else {
+        const newValue = {
+          id: 4,
+          desc: this.desc,
+          completed: false,
+        };
+        this.$emit("add", newValue);
+        this.desc = "";
+        e.target.reset();
+      }
     },
   },
 };
@@ -46,5 +55,8 @@ li {
 }
 a {
   color: #42b983;
+}
+.errorMsg {
+  color: red;
 }
 </style>

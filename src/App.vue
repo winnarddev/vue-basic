@@ -1,7 +1,11 @@
 <template>
   <img alt="Vue logo" src="./assets/logo.png" />
   <Form msg="Winnard" v-on:add="addValue" />
-  <Todos v-bind:todos="todos" />
+  <Todos
+    v-bind:todos="todos"
+    v-on:completed="markComplete"
+    v-on:del-todo="deleteTodo"
+  />
 </template>
 
 <script>
@@ -20,6 +24,19 @@ export default {
       // const {desc,completed} = newValue
       this.todos = [...this.todos, newValue];
       console.log(this.todos);
+    },
+
+    markComplete(id) {
+      //alert("dsf".id);
+      // this.todos = this.todos.filter((todo) => todo.id !== id);
+
+      const todo = this.todos.find((obj) => obj.id === id);
+      todo.completed = !todo.completed;
+      //this.todo.completed = !this.todo.completed;
+    },
+
+    deleteTodo(id) {
+      this.todos = this.todos.filter((todo) => todo.id !== id);
     },
   },
 

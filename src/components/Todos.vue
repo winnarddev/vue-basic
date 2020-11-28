@@ -1,8 +1,14 @@
 
 <template>
   <div>
-    <div v-bind:key="todo.id" v-for="todo in todos">
-      <TodoItem v-bind:todo="todo" />
+    <div v-bind:key="todo" v-for="todo in todos">
+      <TodoItem
+        v-bind:todo="todo"
+        todo.sync="todo"
+        v-on:completed="$emit('completed', todo.id)"
+        v-on:del-todo="$emit('del-todo', todo.id)"
+      />
+      <!--<TodoItem v-for="todo in todos" :key="todo.id" todo_prop.sync="todo" />-->
     </div>
   </div>
 </template>
